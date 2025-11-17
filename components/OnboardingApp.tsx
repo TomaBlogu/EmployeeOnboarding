@@ -1,10 +1,22 @@
 import React, { useState } from 'react';
-import { ChevronRight, Users, Target, Building2, BookOpen, Search, Menu, Home, FileText, Briefcase, Award, Clock, CheckCircle2, ArrowRight } from 'lucide-react';
+import {
+  ArrowRight,
+  Award,
+  BookOpen,
+  Briefcase,
+  Building2,
+  CheckCircle2,
+  ChevronRight,
+  FileText,
+  Menu,
+  Search,
+  Target
+} from 'lucide-react';
 
 const OnboardingApp = () => {
-  const [currentView, setCurrentView] = useState('welcome');
+  const [currentView, setCurrentView] = useState<'journey' | 'wiki'>('journey');
   const [onboardingStep, setOnboardingStep] = useState(0);
-  const [completedSteps, setCompletedSteps] = useState([]);
+  const [completedSteps, setCompletedSteps] = useState<number[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
 
   const onboardingSteps = [
@@ -14,9 +26,9 @@ const OnboardingApp = () => {
       subtitle: 'Suntem încântați să te avem în echipă',
       content: (
         <div className="space-y-6">
-          <div className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl p-8 border border-indigo-100">
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">Despre TechFlow</h3>
-            <p className="text-gray-700 leading-relaxed mb-4">
+          <div className="rounded-2xl border border-indigo-100 bg-gradient-to-br from-indigo-50 to-purple-50 p-8 shadow-lg shadow-indigo-100/50">
+            <h3 className="mb-4 text-2xl font-bold text-gray-900">Despre TechFlow</h3>
+            <p className="mb-4 text-gray-700 leading-relaxed">
               Fondată în 2018, TechFlow este o companie inovatoare care dezvoltă soluții software pentru peste 200 de clienți din România și Europa.
             </p>
             <p className="text-gray-700 leading-relaxed">
@@ -24,18 +36,16 @@ const OnboardingApp = () => {
             </p>
           </div>
           <div className="grid grid-cols-3 gap-4">
-            <div className="bg-white rounded-xl p-6 border border-gray-200 text-center">
-              <div className="text-3xl font-bold text-indigo-600 mb-2">150+</div>
-              <div className="text-sm text-gray-600">Angajați</div>
-            </div>
-            <div className="bg-white rounded-xl p-6 border border-gray-200 text-center">
-              <div className="text-3xl font-bold text-purple-600 mb-2">200+</div>
-              <div className="text-sm text-gray-600">Clienți</div>
-            </div>
-            <div className="bg-white rounded-xl p-6 border border-gray-200 text-center">
-              <div className="text-3xl font-bold text-pink-600 mb-2">50+</div>
-              <div className="text-sm text-gray-600">Proiecte</div>
-            </div>
+            {[
+              { label: 'Angajați', value: '150+', accent: 'text-indigo-600' },
+              { label: 'Clienți', value: '200+', accent: 'text-purple-600' },
+              { label: 'Proiecte', value: '50+', accent: 'text-pink-600' }
+            ].map((stat) => (
+              <div key={stat.label} className="rounded-2xl border border-white/80 bg-white/90 p-6 text-center shadow">
+                <div className={`mb-2 text-3xl font-bold ${stat.accent}`}>{stat.value}</div>
+                <div className="text-sm text-gray-600">{stat.label}</div>
+              </div>
+            ))}
           </div>
         </div>
       )
@@ -46,34 +56,36 @@ const OnboardingApp = () => {
       subtitle: 'Misiunea și viziunea companiei',
       content: (
         <div className="space-y-4">
-          <div className="bg-gradient-to-r from-blue-50 to-cyan-50 rounded-xl p-6 border border-blue-100">
+          <div className="rounded-2xl border border-blue-100/60 bg-gradient-to-r from-blue-50 to-cyan-50 p-6 shadow">
             <div className="flex items-start gap-4">
-              <div className="bg-blue-500 rounded-lg p-3">
-                <Target className="w-6 h-6 text-white" />
+              <div className="rounded-xl bg-blue-500 p-3 text-white shadow-inner">
+                <Target className="h-6 w-6" />
               </div>
               <div>
-                <h4 className="font-semibold text-gray-900 mb-2">Misiune</h4>
-                <p className="text-gray-700">Să oferim soluții tehnologice inovatoare care simplifică procesele complexe și creează valoare reală pentru clienți.</p>
+                <h4 className="mb-2 font-semibold text-gray-900">Misiune</h4>
+                <p className="text-gray-700">
+                  Să oferim soluții tehnologice inovatoare care simplifică procesele complexe și creează valoare reală pentru clienți.
+                </p>
               </div>
             </div>
           </div>
-          <div className="bg-gradient-to-r from-purple-50 to-pink-50 rounded-xl p-6 border border-purple-100">
+          <div className="rounded-2xl border border-purple-100/60 bg-gradient-to-r from-purple-50 to-pink-50 p-6 shadow">
             <div className="flex items-start gap-4">
-              <div className="bg-purple-500 rounded-lg p-3">
-                <Award className="w-6 h-6 text-white" />
+              <div className="rounded-xl bg-purple-500 p-3 text-white shadow-inner">
+                <Award className="h-6 w-6" />
               </div>
               <div>
-                <h4 className="font-semibold text-gray-900 mb-2">Viziune</h4>
+                <h4 className="mb-2 font-semibold text-gray-900">Viziune</h4>
                 <p className="text-gray-700">Să devenim liderul regional în dezvoltarea de software enterprise până în 2028.</p>
               </div>
             </div>
           </div>
-          <div className="bg-white rounded-xl p-6 border border-gray-200">
-            <h4 className="font-semibold text-gray-900 mb-3">Valori Fundamentale</h4>
+          <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow">
+            <h4 className="mb-3 font-semibold text-gray-900">Valori Fundamentale</h4>
             <div className="grid grid-cols-2 gap-3">
               {['Inovație', 'Colaborare', 'Excelență', 'Integritate'].map((value) => (
                 <div key={value} className="flex items-center gap-2 text-gray-700">
-                  <CheckCircle2 className="w-5 h-5 text-green-500" />
+                  <CheckCircle2 className="h-5 w-5 text-green-500" />
                   <span>{value}</span>
                 </div>
               ))}
@@ -96,11 +108,14 @@ const OnboardingApp = () => {
             { name: 'Customer Success', icon: '🎯', team: '25 membri', color: 'from-indigo-500 to-purple-500' },
             { name: 'Finance', icon: '💰', team: '15 membri', color: 'from-yellow-500 to-orange-500' }
           ].map((dept) => (
-            <div key={dept.name} className="bg-white rounded-xl p-6 border border-gray-200 hover:shadow-lg transition-shadow cursor-pointer">
-              <div className={`w-12 h-12 rounded-lg bg-gradient-to-br ${dept.color} flex items-center justify-center text-2xl mb-3`}>
+            <div
+              key={dept.name}
+              className="rounded-2xl border border-gray-200 bg-white p-6 shadow transition hover:-translate-y-1 hover:shadow-xl"
+            >
+              <div className={`mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br ${dept.color} text-2xl`}>
                 {dept.icon}
               </div>
-              <h4 className="font-semibold text-gray-900 mb-1">{dept.name}</h4>
+              <h4 className="mb-1 font-semibold text-gray-900">{dept.name}</h4>
               <p className="text-sm text-gray-600">{dept.team}</p>
             </div>
           ))}
@@ -113,10 +128,10 @@ const OnboardingApp = () => {
       subtitle: 'Ce vei face aici',
       content: (
         <div className="space-y-4">
-          <div className="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl p-8 border border-indigo-100">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="bg-indigo-500 rounded-lg p-3">
-                <Briefcase className="w-6 h-6 text-white" />
+          <div className="rounded-2xl border border-indigo-100 bg-gradient-to-br from-indigo-50 to-purple-50 p-8 shadow">
+            <div className="mb-4 flex items-center gap-3">
+              <div className="rounded-xl bg-indigo-500 p-3 text-white shadow-inner">
+                <Briefcase className="h-6 w-6" />
               </div>
               <div>
                 <h3 className="text-xl font-bold text-gray-900">Senior Frontend Developer</h3>
@@ -125,24 +140,22 @@ const OnboardingApp = () => {
             </div>
             <div className="space-y-3">
               <div>
-                <h4 className="font-semibold text-gray-900 mb-2">Responsabilități Principale:</h4>
+                <h4 className="mb-2 font-semibold text-gray-900">Responsabilități Principale:</h4>
                 <ul className="space-y-2 text-gray-700">
-                  <li className="flex items-start gap-2">
-                    <ChevronRight className="w-5 h-5 text-indigo-500 flex-shrink-0 mt-0.5" />
-                    <span>Dezvoltarea de interfețe moderne și responsive</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <ChevronRight className="w-5 h-5 text-indigo-500 flex-shrink-0 mt-0.5" />
-                    <span>Colaborarea cu echipele de design și backend</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <ChevronRight className="w-5 h-5 text-indigo-500 flex-shrink-0 mt-0.5" />
-                    <span>Mentoratul dezvoltatorilor juniori</span>
-                  </li>
+                  {[
+                    'Dezvoltarea de interfețe moderne și responsive',
+                    'Colaborarea cu echipele de design și backend',
+                    'Mentoratul dezvoltatorilor juniori'
+                  ].map((item) => (
+                    <li key={item} className="flex items-start gap-2">
+                      <ChevronRight className="mt-0.5 h-5 w-5 text-indigo-500" />
+                      <span>{item}</span>
+                    </li>
+                  ))}
                 </ul>
               </div>
-              <div className="bg-white rounded-lg p-4">
-                <h4 className="font-semibold text-gray-900 mb-2">Echipa Ta:</h4>
+              <div className="rounded-xl bg-white p-4 shadow-inner">
+                <h4 className="mb-2 font-semibold text-gray-900">Echipa Ta:</h4>
                 <p className="text-gray-700">Vei face parte din Product Team Alpha - 8 dezvoltatori, 2 designeri, 1 product manager</p>
               </div>
             </div>
@@ -195,218 +208,228 @@ const OnboardingApp = () => {
     }
   ];
 
+  const quickLinks = [
+    { name: 'HR Portal', icon: '👤' },
+    { name: 'GitHub', icon: '💻' },
+    { name: 'Slack', icon: '💬' },
+    { name: 'Jira', icon: '📊' },
+    { name: 'Calendar', icon: '📅' },
+    { name: 'Drive', icon: '📁' }
+  ];
+
+  const renderBackdrop = () => (
+    <>
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(99,102,241,0.4),_transparent)]" />
+      <div className="pointer-events-none absolute -right-20 top-10 h-72 w-72 rounded-full bg-purple-500/30 blur-3xl" />
+      <div className="pointer-events-none absolute -left-24 bottom-0 h-80 w-80 rounded-full bg-pink-500/25 blur-3xl" />
+    </>
+  );
+
   const handleCompleteOnboarding = () => {
     setCurrentView('wiki');
   };
 
   const nextStep = () => {
     if (onboardingStep < onboardingSteps.length - 1) {
-      setCompletedSteps([...completedSteps, onboardingStep]);
-      setOnboardingStep(onboardingStep + 1);
+      setCompletedSteps((prev) => (prev.includes(onboardingStep) ? prev : [...prev, onboardingStep]));
+      setOnboardingStep((prev) => prev + 1);
     } else {
-      setCompletedSteps([...completedSteps, onboardingStep]);
+      setCompletedSteps((prev) => (prev.includes(onboardingStep) ? prev : [...prev, onboardingStep]));
       handleCompleteOnboarding();
     }
   };
 
   const prevStep = () => {
-    if (onboardingStep > 0) {
-      setOnboardingStep(onboardingStep - 1);
-    }
+    setOnboardingStep((prev) => Math.max(prev - 1, 0));
   };
+
+  const currentStepData = onboardingSteps[onboardingStep];
 
   if (currentView === 'wiki') {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100">
-        {/* Header */}
-        <header className="bg-white border-b border-gray-200 sticky top-0 z-10">
-          <div className="max-w-7xl mx-auto px-6 py-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-lg flex items-center justify-center">
-                  <BookOpen className="w-6 h-6 text-white" />
+      <div className="relative min-h-screen overflow-hidden bg-slate-950 text-white">
+        {renderBackdrop()}
+        <div className="relative z-10 mx-auto max-w-6xl px-6 py-10 space-y-10">
+          <header className="rounded-3xl border border-white/15 bg-white/5 p-8 backdrop-blur">
+            <div className="flex flex-wrap items-center justify-between gap-4">
+              <div className="flex items-center gap-4">
+                <div className="rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 p-3 shadow-lg shadow-indigo-500/30">
+                  <BookOpen className="h-6 w-6" />
                 </div>
                 <div>
-                  <h1 className="text-xl font-bold text-gray-900">TechFlow Wiki</h1>
-                  <p className="text-sm text-gray-600">Internal Knowledge Base</p>
+                  <p className="text-xs uppercase tracking-[0.3em] text-indigo-200">Knowledge Hub</p>
+                  <h1 className="text-3xl font-semibold text-white">TechFlow Wiki</h1>
+                  <p className="text-sm text-slate-300">Internal Knowledge Base</p>
                 </div>
               </div>
-              <button className="flex items-center gap-2 px-4 py-2 text-gray-700 hover:bg-gray-100 rounded-lg transition-colors">
-                <Menu className="w-5 h-5" />
+              <button className="rounded-2xl border border-white/20 bg-white/10 px-4 py-2 text-sm font-semibold text-white transition hover:border-indigo-300 hover:text-indigo-100">
+                <Menu className="h-4 w-4" />
               </button>
             </div>
-          </div>
-        </header>
-
-        <div className="max-w-7xl mx-auto px-6 py-8">
-          {/* Search Bar */}
-          <div className="mb-8">
-            <div className="relative">
-              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+            <div className="relative mt-6">
+              <Search className="pointer-events-none absolute left-5 top-1/2 h-5 w-5 -translate-y-1/2 text-slate-400" />
               <input
                 type="text"
-                placeholder="Caută în wiki... (departamente, politici, unelte)"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-12 pr-4 py-4 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-gray-900 placeholder-gray-400"
+                placeholder="Caută în wiki... (departamente, politici, unelte)"
+                className="w-full rounded-2xl border border-white/10 bg-white/5 py-4 pl-14 pr-5 text-base text-white placeholder:text-slate-400 focus:border-indigo-300 focus:outline-none focus:ring-1 focus:ring-indigo-400"
               />
             </div>
-          </div>
+          </header>
 
-          {/* Welcome Back Section */}
-          <div className="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-2xl p-8 mb-8 text-white">
-            <h2 className="text-2xl font-bold mb-2">Bine ai revenit! 👋</h2>
-            <p className="text-indigo-100">Aici găsești toate informațiile de care ai nevoie pentru munca ta zilnică.</p>
-          </div>
-
-          {/* Wiki Sections */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {wikiSections.map((section) => (
-              <div key={section.id} className="bg-white rounded-xl border border-gray-200 overflow-hidden hover:shadow-lg transition-shadow">
-                <div className="bg-gradient-to-r from-gray-50 to-gray-100 p-6 border-b border-gray-200">
-                  <div className="flex items-center gap-3">
-                    <div className="bg-white rounded-lg p-2 shadow-sm">
-                      <section.icon className="w-6 h-6 text-indigo-600" />
+          <section className="grid gap-6 lg:grid-cols-3">
+            <div className="rounded-3xl border border-white/10 bg-gradient-to-br from-indigo-600/40 to-purple-600/30 p-6 shadow-2xl shadow-indigo-500/30 lg:col-span-2">
+              <div className="flex flex-wrap items-center justify-between gap-4">
+                <div>
+                  <p className="text-sm uppercase tracking-[0.3em] text-indigo-100">Bun venit! 👋</p>
+                  <p className="text-sm text-indigo-100">Aici găsești toate informațiile de care ai nevoie pentru munca ta zilnică.</p>
+                </div>
+                <span className="rounded-2xl border border-white/20 px-4 py-2 text-sm text-white/80">Actualizat azi</span>
+              </div>
+              <div className="mt-6 grid gap-4 md:grid-cols-3">
+                {wikiSections.map((section) => (
+                  <div key={section.id} className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                    <div className="mb-3 flex items-center gap-3">
+                      <div className="rounded-xl bg-white/10 p-2">
+                        <section.icon className="h-5 w-5 text-white" />
+                      </div>
+                      <p className="font-semibold text-white">{section.title}</p>
                     </div>
-                    <h3 className="text-lg font-bold text-gray-900">{section.title}</h3>
+                    <button className="text-sm text-indigo-100 hover:text-white">Deschide</button>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
+              <p className="text-sm uppercase tracking-[0.3em] text-slate-400">Link-uri Rapide</p>
+              <div className="mt-4 space-y-3">
+                {quickLinks.map((link) => (
+                  <button
+                    key={link.name}
+                    className="flex w-full items-center justify-between rounded-2xl border border-white/5 bg-white/5 px-4 py-3 text-left transition hover:border-indigo-300"
+                  >
+                    <div className="text-white">
+                      <p className="font-medium">{link.name}</p>
+                    </div>
+                    <span className="text-2xl">{link.icon}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          <section className="grid gap-6 md:grid-cols-2">
+            {wikiSections.map((section) => (
+              <div key={section.id} className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur">
+                <div className="flex items-center gap-3">
+                  <div className="rounded-2xl bg-white/10 p-3 text-indigo-200">
+                    <section.icon className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <p className="text-xs uppercase tracking-[0.3em] text-slate-400">Colecție</p>
+                    <h3 className="text-lg font-semibold text-white">{section.title}</h3>
                   </div>
                 </div>
-                <div className="p-6">
-                  <div className="space-y-3">
-                    {section.items.map((item, idx) => (
-                      <button
-                        key={idx}
-                        className="w-full text-left p-4 rounded-lg hover:bg-gray-50 transition-colors group"
-                      >
-                        <div className="flex items-center justify-between">
-                          <div>
-                            <div className="font-medium text-gray-900 group-hover:text-indigo-600 transition-colors">{item.name}</div>
-                            <div className="text-sm text-gray-600 mt-1">{item.desc}</div>
-                          </div>
-                          <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-indigo-600 transition-colors" />
-                        </div>
-                      </button>
-                    ))}
-                  </div>
+                <div className="mt-5 space-y-3">
+                  {section.items.map((item, idx) => (
+                    <button
+                      key={idx}
+                      className="flex w-full items-center justify-between rounded-2xl border border-white/5 bg-white/5 px-4 py-3 text-left transition hover:border-indigo-300"
+                    >
+                      <div>
+                        <p className="font-medium text-white">{item.name}</p>
+                        <p className="text-sm text-slate-300">{item.desc}</p>
+                      </div>
+                      <ChevronRight className="h-4 w-4 text-slate-400" />
+                    </button>
+                  ))}
                 </div>
               </div>
             ))}
-          </div>
-
-          {/* Quick Links */}
-          <div className="mt-8 bg-white rounded-xl border border-gray-200 p-6">
-            <h3 className="text-lg font-bold text-gray-900 mb-4">Link-uri Rapide</h3>
-            <div className="grid grid-cols-3 gap-4">
-              {[
-                { name: 'HR Portal', icon: '👤' },
-                { name: 'GitHub', icon: '💻' },
-                { name: 'Slack', icon: '💬' },
-                { name: 'Jira', icon: '📊' },
-                { name: 'Calendar', icon: '📅' },
-                { name: 'Drive', icon: '📁' }
-              ].map((link) => (
-                <button
-                  key={link.name}
-                  className="flex items-center gap-3 p-4 rounded-lg hover:bg-gray-50 transition-colors border border-gray-200"
-                >
-                  <span className="text-2xl">{link.icon}</span>
-                  <span className="font-medium text-gray-900">{link.name}</span>
-                </button>
-              ))}
-            </div>
-          </div>
+          </section>
         </div>
       </div>
     );
   }
 
-  // Onboarding View
-  const currentStepData = onboardingSteps[onboardingStep];
-
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50">
-      <div className="max-w-4xl mx-auto px-6 py-12">
-        {/* Progress Bar */}
-        <div className="mb-8">
-          <div className="flex items-center justify-between mb-4">
-            {onboardingSteps.map((step, idx) => (
-              <div key={step.id} className="flex items-center flex-1">
-                <div className={`flex items-center justify-center w-10 h-10 rounded-full border-2 transition-all ${
-                  idx === onboardingStep 
-                    ? 'bg-indigo-600 border-indigo-600 text-white' 
-                    : completedSteps.includes(idx)
-                    ? 'bg-green-500 border-green-500 text-white'
-                    : 'bg-white border-gray-300 text-gray-400'
-                }`}>
-                  {completedSteps.includes(idx) ? (
-                    <CheckCircle2 className="w-6 h-6" />
-                  ) : (
-                    <span className="font-semibold">{idx + 1}</span>
-                  )}
-                </div>
-                {idx < onboardingSteps.length - 1 && (
-                  <div className={`h-1 flex-1 mx-2 rounded-full transition-all ${
-                    completedSteps.includes(idx) ? 'bg-green-500' : 'bg-gray-200'
-                  }`} />
-                )}
-              </div>
-            ))}
+    <div className="relative min-h-screen overflow-hidden bg-slate-950 text-white">
+      {renderBackdrop()}
+      <div className="relative z-10 mx-auto max-w-5xl px-6 py-10 space-y-8">
+        <section className="rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
+          <div className="space-y-2">
+            <p className="text-sm uppercase tracking-[0.3em] text-indigo-200">{onboardingSteps[0].subtitle}</p>
+            <h1 className="text-3xl font-semibold text-white">{onboardingSteps[0].title}</h1>
           </div>
-          <div className="text-center">
-            <p className="text-sm text-gray-600">
+          <div className="mt-8 space-y-4">
+            <div className="flex flex-wrap items-center gap-3">
+              {onboardingSteps.map((step, idx) => {
+                const active = idx === onboardingStep;
+                const done = completedSteps.includes(idx);
+                return (
+                  <div key={step.id} className="flex items-center gap-3">
+                    <div
+                      className={`flex h-11 w-11 items-center justify-center rounded-full border-2 text-sm font-semibold transition ${
+                        active
+                          ? 'border-white bg-white/20 text-white shadow-lg shadow-indigo-500/30'
+                          : done
+                          ? 'border-emerald-400 bg-emerald-400/20 text-emerald-100'
+                          : 'border-white/30 bg-white/10 text-slate-300'
+                      }`}
+                    >
+                      {done ? <CheckCircle2 className="h-5 w-5" /> : idx + 1}
+                    </div>
+                    {idx < onboardingSteps.length - 1 && (
+                      <span className={`h-px w-12 rounded-full ${done ? 'bg-emerald-400' : 'bg-white/20'}`} />
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+            <p className="text-sm text-indigo-100">
               Pasul {onboardingStep + 1} din {onboardingSteps.length}
             </p>
           </div>
-        </div>
+        </section>
 
-        {/* Content Card */}
-        <div className="bg-white rounded-2xl shadow-xl border border-gray-200 overflow-hidden">
+        <section className="overflow-hidden rounded-3xl border border-white/10 bg-white text-slate-900 shadow-2xl shadow-indigo-500/30">
           <div className="bg-gradient-to-r from-indigo-600 to-purple-600 px-8 py-10 text-white">
-            <h1 className="text-3xl font-bold mb-2">{currentStepData.title}</h1>
+            <h2 className="text-3xl font-bold">{currentStepData.title}</h2>
             <p className="text-indigo-100 text-lg">{currentStepData.subtitle}</p>
           </div>
-          
-          <div className="px-8 py-10">
-            {currentStepData.content}
-          </div>
-
-          {/* Navigation */}
-          <div className="px-8 py-6 bg-gray-50 border-t border-gray-200 flex items-center justify-between">
+          <div className="px-8 py-10 text-slate-900">{currentStepData.content}</div>
+          <div className="flex flex-wrap items-center justify-between gap-4 border-t border-gray-100 bg-gray-50 px-8 py-6">
             <button
               onClick={prevStep}
               disabled={onboardingStep === 0}
-              className={`px-6 py-3 rounded-lg font-medium transition-all ${
-                onboardingStep === 0
-                  ? 'text-gray-400 cursor-not-allowed'
-                  : 'text-gray-700 hover:bg-gray-200'
-              }`}
+              className="rounded-2xl border border-gray-200 px-6 py-3 text-sm font-medium text-gray-600 transition disabled:cursor-not-allowed disabled:border-gray-200 disabled:text-gray-300 hover:border-indigo-200 hover:text-indigo-600"
             >
               Înapoi
             </button>
             <button
               onClick={nextStep}
-              className="px-8 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-lg font-medium hover:shadow-lg transition-all flex items-center gap-2"
+              className="flex items-center gap-2 rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 px-8 py-3 text-sm font-semibold text-white shadow-lg shadow-indigo-500/40 transition hover:translate-y-0.5"
             >
               {onboardingStep === onboardingSteps.length - 1 ? (
                 <>
                   Finalizează Onboarding
-                  <CheckCircle2 className="w-5 h-5" />
+                  <CheckCircle2 className="h-5 w-5" />
                 </>
               ) : (
                 <>
                   Continuă
-                  <ArrowRight className="w-5 h-5" />
+                  <ArrowRight className="h-5 w-5" />
                 </>
               )}
             </button>
           </div>
-        </div>
+        </section>
 
-        {/* Skip Button */}
-        <div className="text-center mt-6">
+        <div className="text-center">
           <button
             onClick={handleCompleteOnboarding}
-            className="text-gray-600 hover:text-gray-900 transition-colors text-sm"
+            className="text-sm font-medium text-indigo-200 transition hover:text-white"
           >
             Sari peste onboarding →
           </button>
